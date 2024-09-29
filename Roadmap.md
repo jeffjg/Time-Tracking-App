@@ -87,3 +87,10 @@ Deploy:
 
 ### Deploy the application using a service like Netlify, Vercel, or Heroku.
 Share the GitHub repository with your work and write a README.md that explains the project.
+
+
+
+
+## Polishing
+- [ ] Add a little clock emoji before the title of the app.
+- [ ] Make (probably rounded) button shapes for the buttons of "Track Time" and "Reports"
