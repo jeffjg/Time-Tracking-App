@@ -3,6 +3,8 @@
     const form = document.getElementById('add-task-form');
     const stopAddingNewTaskButton = document.getElementById('stop-adding-new-task');
 
+
+
     addNewTaskButton.addEventListener('click', toggleAddTaskBlock);
 
     stopAddingNewTaskButton.addEventListener('click', toggleAddTaskBlock);
@@ -15,15 +17,16 @@
 
     // When the form is submitted 
     form.addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent default form submission behavior
+        event.preventDefault(); // Prevents default form submission behavior
 
+        // Gets user values from form.
         const taskTitle = document.getElementById('new-task').value.trim();
         const taskDesc = document.getElementById('task-description').value.trim();
 
-        // Add new task to task list
+        // Adds new task to task list
         addTaskToList(taskTitle, taskDesc);
 
-        // Reset the form.
+        // Resets the form.
         form.reset();
     })
 
@@ -33,7 +36,7 @@
     function addTaskToList(taskTitle, taskDesc) {  
        const taskList = document.getElementById('task-list');
 
-       // Create elements
+       // Creates elements
         const tr = document.createElement('tr');
         tr.className = 'odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700';
 
@@ -62,14 +65,14 @@
 
         tdButton.innerHTML = `<button id="timer-button" class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-xs font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800"><span class="relative p-2 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">Start Timer</span></button>`;
 
-         // Append th/td to tr.
+         // Appends th/td to tr.
         tr.appendChild(thTitle);
         tr.appendChild(tdDesc);
         tr.appendChild(tdStatus);
         tr.appendChild(tdTime);
         tr.appendChild(tdButton);
 
-        // Append tr to task list:
+        // Appends tr to task list:
         taskList.appendChild(tr);
 
     }
