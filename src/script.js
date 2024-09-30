@@ -1,7 +1,3 @@
-// Run after DOM loads
-document.addEventListener('DOMContentLoaded', function() {
-
-
     const addNewTaskButton = document.getElementById('add-new-task-button');
     const addNewTaskBlock = document.getElementById('add-new-task-block');
     const form = document.getElementById('add-task-form');
@@ -61,16 +57,8 @@ document.addEventListener('DOMContentLoaded', function() {
         form.reset();
     })
 
-
-
-
-
     // Add new task to task list
     function addTaskToList(task) {  
         const taskList = document.getElementById('task-list');        
         taskList.insertAdjacentHTML('beforeend', task)
     }
-
-
-
-});
