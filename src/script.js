@@ -4,7 +4,7 @@
     const stopAddingNewTaskButton = document.getElementById('stop-adding-new-task');
 
 
-
+    // Shows and hides the "Add New Task" block.
     addNewTaskButton.addEventListener('click', toggleAddTaskBlock);
 
     stopAddingNewTaskButton.addEventListener('click', toggleAddTaskBlock);
@@ -15,7 +15,7 @@
 
 
 
-    // When the form is submitted 
+    // Functionality for when the "New Task" form is submitted.
     form.addEventListener('submit', function(event) {
         event.preventDefault(); // Prevents default form submission behavior
 
@@ -23,7 +23,7 @@
         const taskTitle = document.getElementById('new-task').value.trim();
         const taskDesc = document.getElementById('task-description').value.trim();
 
-        // Adds new task to task list
+        // Adds new task to task list.
         addTaskToList(taskTitle, taskDesc);
 
         // Resets the form.
@@ -32,11 +32,11 @@
 
 
 
-    // Adds a task to the list with the given title and description to the task list.
+    // Adds a new task to the task list with the given title and description.
     function addTaskToList(taskTitle, taskDesc) {  
        const taskList = document.getElementById('task-list');
 
-       // Creates elements
+       // Creates elements.
         const tr = document.createElement('tr');
         tr.className = 'odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700';
 
@@ -72,7 +72,7 @@
         tr.appendChild(tdTime);
         tr.appendChild(tdButton);
 
-        // Appends tr to task list:
+        // Appends tr to task list.
         taskList.appendChild(tr);
 
     }
