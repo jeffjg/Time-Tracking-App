@@ -26,8 +26,8 @@
     form.addEventListener('submit', function(event) {
         event.preventDefault(); // Prevent default form submission behavior
 
-        const taskTitle = document.getElementById('new-task').value;
-        const taskDesc = document.getElementById('task-description').value;
+        const taskTitle = document.getElementById('new-task').value.trim();
+        const taskDesc = document.getElementById('task-description').value.trim();
 
         // Add new task to task list
         addTaskToList(taskTitle, taskDesc);
@@ -41,7 +41,7 @@
     // Adds a task to the list with the given title and description to the task list.
     function addTaskToList(taskTitle, taskDesc) {  
        const taskList = document.getElementById('task-list');
-
+       
        // Create elements
         const tr = document.createElement('tr');
         tr.className = 'odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700';
