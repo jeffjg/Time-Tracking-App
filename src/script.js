@@ -5,21 +5,30 @@
 
 
 
-    addNewTaskButton.addEventListener('click', startAddingTask);
+    addNewTaskButton.addEventListener('click', () => {
+        if (addNewTaskBlock.classList.contains('hidden')) {
+           startAddingTask();
+        } else {
+            stopAddingTask();
+        }
+    });
+
     stopAddingNewTaskButton.addEventListener('click', stopAddingTask);
 
 
-    // Uses CSS classes to reveal the "Add Task" block
+
+    // Uses classes to reveal the "Add Task" block
     function startAddingTask() {
         addNewTaskBlock.classList.remove('hidden');
         addNewTaskBlock.classList.add('block');
     }
 
-    // Uses CSS classes to hide the "Add Task" block
+    // Uses classes to hide the "Add Task" block
     function stopAddingTask() {
         addNewTaskBlock.classList.remove('block');
         addNewTaskBlock.classList.add('hidden');
     }
+
 
 
     // When the form is submitted 
@@ -41,7 +50,7 @@
     // Adds a task to the list with the given title and description to the task list.
     function addTaskToList(taskTitle, taskDesc) {  
        const taskList = document.getElementById('task-list');
-       
+
        // Create elements
         const tr = document.createElement('tr');
         tr.className = 'odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700';
