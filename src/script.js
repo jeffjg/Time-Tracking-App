@@ -3,30 +3,12 @@
     const form = document.getElementById('add-task-form');
     const stopAddingNewTaskButton = document.getElementById('stop-adding-new-task');
 
+    addNewTaskButton.addEventListener('click', toggleAddTaskBlock);
 
+    stopAddingNewTaskButton.addEventListener('click', toggleAddTaskBlock);
 
-    addNewTaskButton.addEventListener('click', () => {
-        if (addNewTaskBlock.classList.contains('hidden')) {
-           startAddingTask();
-        } else {
-            stopAddingTask();
-        }
-    });
-
-    stopAddingNewTaskButton.addEventListener('click', stopAddingTask);
-
-
-
-    // Uses classes to reveal the "Add Task" block
-    function startAddingTask() {
-        addNewTaskBlock.classList.remove('hidden');
-        addNewTaskBlock.classList.add('block');
-    }
-
-    // Uses classes to hide the "Add Task" block
-    function stopAddingTask() {
-        addNewTaskBlock.classList.remove('block');
-        addNewTaskBlock.classList.add('hidden');
+    function toggleAddTaskBlock() {
+        addNewTaskBlock.classList.toggle('hidden');
     }
 
 
