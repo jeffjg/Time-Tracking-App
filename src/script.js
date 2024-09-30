@@ -49,39 +49,36 @@
         const thTitle = document.createElement('th');
         thTitle.scope = 'row';
         thTitle.className = 'px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white';
-        thTitle.innerHTML = taskTitle;
+        thTitle.textContent = taskTitle;
 
         const nonHeaderClasses = 'px-6 py-4';
 
         const tdDesc = document.createElement('td');
         tdDesc.className = nonHeaderClasses;
-        tdDesc.innerHTML = taskDesc;
+        tdDesc.textContent = taskDesc;
 
         const tdStatus = document.createElement('td');
         tdStatus.className = nonHeaderClasses;
-        tdStatus.innerHTML = 'Not Started';
+        tdStatus.textContent = 'Not Started';
 
         const tdTime = document.createElement('td');
         tdTime.className = nonHeaderClasses;
-        tdTime.innerHTML = '-';
+        tdTime.textContent = '-';
 
         const tdButton = document.createElement('td');
         tdButton.className = nonHeaderClasses;
 
-        const timerButton = document.createElement('button');
-        timerButton.className = 'relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-xs font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800';
-        timerButton.id = 'timer-button';
-        timerButton.innerHTML = 'Start Timer';
 
-        // Append button to td, then td to tr.
-        tdButton.appendChild(timerButton);
+        tdButton.innerHTML = `<button id="timer-button" class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-xs font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800"><span class="relative p-2 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">Start Timer</span></button>`;
+
+         // Append th/td to tr.
         tr.appendChild(thTitle);
         tr.appendChild(tdDesc);
         tr.appendChild(tdStatus);
         tr.appendChild(tdTime);
         tr.appendChild(tdButton);
 
-        // Append the row to the task list:
+        // Append tr to task list:
         taskList.appendChild(tr);
 
     }
