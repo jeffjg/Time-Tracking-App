@@ -1,78 +1,152 @@
-    const addNewTaskButton = document.getElementById('add-new-task-button');
-    const addNewTaskBlock = document.getElementById('add-new-task-block');
-    const form = document.getElementById('add-task-form');
-    const stopAddingNewTaskButton = document.getElementById('stop-adding-new-task');
+// Initialize the timers Map to keep track of timers associated with each task row
+const timers = new Map();
 
+// Grab DOM elements
+const newTaskButton = document.getElementById('newTaskButton');
+const newTaskBlock = document.getElementById('newTaskBlock');
+const newTaskForm = document.getElementById('newTaskForm');
+const haltNewTask = document.getElementById('haltNewTask');
+const taskList = document.getElementById('taskList');
 
-    // Shows and hides the "Add New Task" block.
-    addNewTaskButton.addEventListener('click', toggleAddTaskBlock);
+// Show/Hide New Task Block
+function toggleNewTaskBlock() {
+    newTaskBlock.classList.toggle('hidden');
+}
+newTaskButton.addEventListener('click', toggleNewTaskBlock);
+haltNewTask.addEventListener('click', toggleNewTaskBlock);
 
-    stopAddingNewTaskButton.addEventListener('click', toggleAddTaskBlock);
-
-    function toggleAddTaskBlock() {
-        addNewTaskBlock.classList.toggle('hidden');
-    }
-
-
-
-    // Functionality for when the "New Task" form is submitted.
-    form.addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevents default form submission behavior
-
-        // Gets user values from form.
-        const taskTitle = document.getElementById('new-task').value.trim();
-        const taskDesc = document.getElementById('task-description').value.trim();
-
-        // Adds new task to task list.
+// "New Task" Form Submission
+newTaskForm.addEventListener('submit', function(event) {
+    // Prevent Form Default Submission Behavior
+    event.preventDefault();
+    
+    // Get Task Title and Description from Form
+    const taskTitle = document.getElementById('new-task').value.trim();
+    const taskDesc = document.getElementById('task-description').value.trim();
+   
+    // Add Task to List if title is not empty
+    if(taskTitle !== '') {
         addTaskToList(taskTitle, taskDesc);
-
-        // Resets the form.
-        form.reset();
-    })
-
-
-
-    // Adds a new task to the task list with the given title and description.
-    function addTaskToList(taskTitle, taskDesc) {  
-       const taskList = document.getElementById('task-list');
-
-       // Creates elements.
-        const tr = document.createElement('tr');
-        tr.className = 'odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700';
-
-        const thTitle = document.createElement('th');
-        thTitle.scope = 'row';
-        thTitle.className = 'px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white';
-        thTitle.textContent = taskTitle;
-
-        const nonHeaderClasses = 'px-6 py-4';
-
-        const tdDesc = document.createElement('td');
-        tdDesc.className = nonHeaderClasses;
-        tdDesc.textContent = taskDesc;
-
-        const tdStatus = document.createElement('td');
-        tdStatus.className = nonHeaderClasses;
-        tdStatus.textContent = 'Not Started';
-
-        const tdTime = document.createElement('td');
-        tdTime.className = nonHeaderClasses;
-        tdTime.textContent = '-';
-
-        const tdButton = document.createElement('td');
-        tdButton.className = nonHeaderClasses;
-
-
-        tdButton.innerHTML = `<button id="timer-button" class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-xs font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800"><span class="relative p-2 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">Start Timer</span></button>`;
-
-         // Appends th/td to tr.
-        tr.appendChild(thTitle);
-        tr.appendChild(tdDesc);
-        tr.appendChild(tdStatus);
-        tr.appendChild(tdTime);
-        tr.appendChild(tdButton);
-
-        // Appends tr to task list.
-        taskList.appendChild(tr);
-
+        // Reset Form
+        newTaskForm.reset();
+        // Hide the New Task Block
+        toggleNewTaskBlock();
+    } else {
+        alert('Task title cannot be empty.');
     }
+});
+
+// Add Task to List
+function addTaskToList(taskTitle, taskDesc) {  
+    // Create Row Elements
+    const tr = document.createElement('tr');
+    tr.className = 'odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700';
+
+    const thTitle = document.createElement('th');
+    thTitle.scope = 'row';
+    thTitle.className = 'px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white';
+    thTitle.textContent = taskTitle;
+
+    const nonHeaderClasses = 'px-6 py-4';
+
+    const tdDesc = document.createElement('td');
+    tdDesc.className = nonHeaderClasses;
+    tdDesc.textContent = taskDesc;
+
+    const tdStatus = document.createElement('td');
+    tdStatus.className = nonHeaderClasses;
+    tdStatus.textContent = 'Not Started';
+
+    const tdTime = document.createElement('td');
+    tdTime.className = nonHeaderClasses;
+    tdTime.textContent = '00:00:00';
+
+    const tdButton = document.createElement('td');
+    tdButton.className = nonHeaderClasses;
+
+    tdButton.innerHTML = `
+        <button class="timer-button relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-xs font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">
+            <span class="buttonText relative p-2 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">Start Timer</span>
+        </button>
+    `;
+
+    // Append all cells to the row
+    tr.appendChild(thTitle);
+    tr.appendChild(tdDesc);
+    tr.appendChild(tdStatus);
+    tr.appendChild(tdTime);
+    tr.appendChild(tdButton);
+
+    // Append the row to the task list table
+    taskList.appendChild(tr);
+
+    // Initialize Timer instance for this task
+    const timer = new Timer(tdTime);
+    timers.set(tr, timer);
+
+    // Select the timer button within this row
+    const timerButton = tdButton.querySelector('.timer-button');
+
+    // Event listener for the timer button
+    timerButton.addEventListener('click', () => {
+        if (!timer.isRunning) {
+            timer.start();
+            // Update button text
+            const buttonText = timerButton.querySelector('.buttonText');
+            if(buttonText) {
+                buttonText.textContent = 'Pause Timer';
+            }
+            // Update status
+            tdStatus.textContent = 'Running';
+        } else {
+            timer.pause();
+            // Update button text
+            const buttonText = timerButton.querySelector('.buttonText');
+            if(buttonText) {
+                buttonText.textContent = 'Start Timer';
+            }
+            // Update status
+            tdStatus.textContent = 'Paused';
+        }
+    });
+}
+
+// Timer Class Definition
+class Timer {
+    constructor(displayElement) {
+        this.displayElement = displayElement;
+        this.startTime = 0;
+        this.elapsedTime = 0;
+        this.timerInterval = null;
+        this.isRunning = false;
+    }
+
+    // Start the Timer Functionality
+    start() {
+        if (!this.isRunning) {
+            this.isRunning = true;
+            this.startTime = Date.now() - this.elapsedTime;
+            this.timerInterval = setInterval(() => {
+                this.elapsedTime = Date.now() - this.startTime;
+                this.updateDisplay();
+            }, 1000);
+        }
+    }
+
+    // Pause the Timer Functionality
+    pause() {
+        if (this.isRunning) {
+            this.isRunning = false;
+            clearInterval(this.timerInterval);
+        }
+    }
+
+    // Update Display Method
+    updateDisplay() {
+        const totalSeconds = Math.floor(this.elapsedTime / 1000);
+        const hours = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
+        const minutes = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
+        const seconds = String(totalSeconds % 60).padStart(2, '0');
+        this.displayElement.textContent = `${hours}:${minutes}:${seconds}`;
+    }
+}

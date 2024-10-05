@@ -14,12 +14,6 @@
     Time Tracking App
   </h1>
 
-  
-
-
-
-  
-
 
 <div class="mb-4 mt-4 border-b border-gray-400 dark:border-gray-700">
   
@@ -47,7 +41,7 @@
       <h2 class="mr-4 text-left text-lg">Task List</h2>
 
 
-      <button id="add-new-task-button" class="relative px-1 py-2 px-[2px] overflow-hidden text-xs font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-teal-300 to-lime-300 group-hover:from-teal-300 group-hover:to-lime-300 dark:text-white dark:hover:text-gray-900 focus:ring-4 focus:outline-none focus:ring-lime-200 dark:focus:ring-lime-800">
+      <button id="newTaskButton" class="relative px-1 py-2 px-[2px] overflow-hidden text-xs font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-teal-300 to-lime-300 group-hover:from-teal-300 group-hover:to-lime-300 dark:text-white dark:hover:text-gray-900 focus:ring-4 focus:outline-none focus:ring-lime-200 dark:focus:ring-lime-800">
         <span class="relative p-1.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
         Add New Task +
         </span>
@@ -57,9 +51,9 @@
       </div>
         
 
-<div id="add-new-task-block" class="hidden flex items-center mb-4">
+<div id="newTaskBlock" class="hidden flex items-center mb-4">
 
-    <a id="stop-adding-new-task" href="#">
+    <a id="haltNewTask" href="#">
       <svg class="w-6 h-6 text-red-600 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
         <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
       </svg>
@@ -67,13 +61,13 @@
       
 
       
-      <form id="add-task-form" class="flex items-center space-x-4">
+      <form id="newTaskForm" class="flex items-center space-x-4">
         
         <input type="text" id="new-task" name="new-task" placeholder="New Task" class="text-black text-sm px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600" required>
         
         <input type="text" id="task-description" name="task-description" placeholder="Description" class="text-black text-sm px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
 
-        <button type="submit" class="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700">Add Item</button>
+        <button type="submit" class="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700">Add Task</button>
       </form>
 
     </div>
@@ -101,7 +95,7 @@
           </tr>
       </thead>
       
-      <tbody id="task-list">
+      <tbody id="taskList">
 
           <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
               <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -114,13 +108,13 @@
                   Not Started
               </td>
               <td class="px-6 py-4">
-                  <div id="time-display">-</div>
+                  <div id="timer-display">00:00:00</div>
               </td>
               <td class="px-6 py-4">
 
 
-                <button id="timer-button" class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-xs font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">
-                  <span class="relative p-2 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                <button class="timer-button relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-xs font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">
+                  <span class="buttonText relative p-2 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
                   Start Timer
                   </span>
                   </button>
@@ -158,3 +152,7 @@
 <script type="module" src="./script.js"></script>
 </body>
 </html>
+
+
+
+
