@@ -4,16 +4,19 @@ const timers = new Map();
 // Grab DOM elements
 const newTaskButton = document.getElementById("newTaskButton");
 const newTaskBlock = document.getElementById("newTaskBlock");
+const newTaskInput = document.getElementById("new-task");
 const newTaskForm = document.getElementById("newTaskForm");
 const haltNewTask = document.getElementById("haltNewTask");
 const taskList = document.getElementById("taskList");
 
+newTaskButton.addEventListener("click", toggleNewTaskBlock);
+haltNewTask.addEventListener("click", toggleNewTaskBlock);
+
 // Show/Hide New Task Block
 function toggleNewTaskBlock() {
   newTaskBlock.classList.toggle("hidden");
+  newTaskInput.focus();
 }
-newTaskButton.addEventListener("click", toggleNewTaskBlock);
-haltNewTask.addEventListener("click", toggleNewTaskBlock);
 
 // "New Task" Form Submission
 newTaskForm.addEventListener("submit", function (event) {
