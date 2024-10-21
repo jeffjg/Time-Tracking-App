@@ -59,7 +59,7 @@ function addTaskToList(taskTitle, taskDesc) {
   tdDesc.textContent = taskDesc;
 
   const tdTime = document.createElement("td");
-  tdTime.className = nonHeaderClasses;
+  tdTime.className = nonHeaderClasses + " runtime";
   tdTime.textContent = "00:00:00";
 
   const tdButton = document.createElement("td");
@@ -107,6 +107,7 @@ function addTaskToList(taskTitle, taskDesc) {
   timerButton.addEventListener("click", () => {
     if (!timer.isRunning) {
       timer.start();
+
       // Update button text
       const buttonText = timerButton.querySelector(".buttonText");
       if (buttonText) {
@@ -141,6 +142,7 @@ class Timer {
   start() {
     if (!this.isRunning) {
       this.isRunning = true;
+      this.displayElement.style.fontWeight = "bold";
       this.startTime = Date.now() - this.elapsedTime;
       this.timerInterval = setInterval(() => {
         this.elapsedTime = Date.now() - this.startTime;
@@ -153,6 +155,7 @@ class Timer {
   pause() {
     if (this.isRunning) {
       this.isRunning = false;
+      this.displayElement.style.fontWeight = "normal";
       clearInterval(this.timerInterval);
     }
   }
