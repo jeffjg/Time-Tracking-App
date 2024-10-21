@@ -53,10 +53,6 @@ function addTaskToList(taskTitle, taskDesc) {
     tdDesc.className = nonHeaderClasses;
     tdDesc.textContent = taskDesc;
 
-    const tdStatus = document.createElement('td');
-    tdStatus.className = nonHeaderClasses;
-    tdStatus.textContent = 'Not Started';
-
     const tdTime = document.createElement('td');
     tdTime.className = nonHeaderClasses;
     tdTime.textContent = '00:00:00';
@@ -73,7 +69,6 @@ function addTaskToList(taskTitle, taskDesc) {
     // Append all cells to the row
     tr.appendChild(thTitle);
     tr.appendChild(tdDesc);
-    tr.appendChild(tdStatus);
     tr.appendChild(tdTime);
     tr.appendChild(tdButton);
 
@@ -96,8 +91,6 @@ function addTaskToList(taskTitle, taskDesc) {
             if(buttonText) {
                 buttonText.textContent = 'Pause Timer';
             }
-            // Update status
-            tdStatus.textContent = 'Running';
         } else {
             timer.pause();
             // Update button text
@@ -105,8 +98,7 @@ function addTaskToList(taskTitle, taskDesc) {
             if(buttonText) {
                 buttonText.textContent = 'Start Timer';
             }
-            // Update status
-            tdStatus.textContent = 'Paused';
+
         }
     });
 }
