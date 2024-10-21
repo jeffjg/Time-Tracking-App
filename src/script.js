@@ -66,7 +66,7 @@ function addTaskToList(taskTitle, taskDesc) {
   tdButton.className = nonHeaderClasses;
 
   tdButton.innerHTML = `
-        <button class="timer-button relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-xs font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">
+        <button class="timer-button relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-xs font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 hover:text-white dark:text-white">
             <span class="buttonText relative p-2 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">Start Timer</span>
         </button>
     `;
@@ -87,6 +87,22 @@ function addTaskToList(taskTitle, taskDesc) {
   // Select the timer button within this row
   const timerButton = tdButton.querySelector(".timer-button");
 
+  const nonrunningButtonStyles = [
+    "from-purple-600",
+    "to-blue-500",
+    "group-hover:from-purple-600",
+    "group-hover:to-blue-500",
+    "hover:text-white",
+    "dark:text-white",
+  ];
+  const runningButtonStyles = [
+    "from-teal-300",
+    "to-lime-300",
+    "text-white",
+    "hover:text-gray-900",
+    "ring-lime-200",
+  ];
+
   // Event listener for the timer button
   timerButton.addEventListener("click", () => {
     if (!timer.isRunning) {
@@ -95,6 +111,8 @@ function addTaskToList(taskTitle, taskDesc) {
       const buttonText = timerButton.querySelector(".buttonText");
       if (buttonText) {
         buttonText.textContent = "Pause Timer";
+        timerButton.classList.remove(...nonrunningButtonStyles);
+        timerButton.classList.add(...runningButtonStyles);
       }
     } else {
       timer.pause();
@@ -102,6 +120,8 @@ function addTaskToList(taskTitle, taskDesc) {
       const buttonText = timerButton.querySelector(".buttonText");
       if (buttonText) {
         buttonText.textContent = "Start Timer";
+        timerButton.classList.remove(...runningButtonStyles);
+        timerButton.classList.add(...nonrunningButtonStyles);
       }
     }
   });
